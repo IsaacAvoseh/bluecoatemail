@@ -17,10 +17,18 @@
                 <img src="https://bluecoat.ng/images/logo.png" alt="" width="30" height="24" class="d-inline-block align-text-top">
                 BlueCoat
             </a>
+            @if(Auth::user())
             <form action="/logout" method="POST">
                 @csrf
                 <button class="btn btn-outline-success" type="submit">LogOut</button>
             </form>
+            @else
+            <form action="/" method="POST">
+                @csrf
+                <button class="btn btn-outline-success" type="submit">Login</button>
+            </form>
+
+            @endif
         </div>
     </nav>
     <div class="container">

@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BlueCoat New Email</title>
+    <title>BlueCoat Reset Email</title>
 </head>
 
 <body bgcolor="#f7f7f7">
@@ -28,16 +28,15 @@
                             <tbody>
                                 <tr>
                                     <td class="header-lg">
-                                        <p><span style="font-size:20px;">New Email Notification !</span> </p>
+                                        <p><span style="font-size:20px;">Reset Email Notification !</span> </p>
                                         <p>
                                             <b>Email:</b> {{$data['email'] }} <br><br>
                                             <b> Password:</b> {{ $data['password']}}
 
                                         </p>
                                         <p>
-                                    Notification to add new user email.
-                                        </p>        
-                                    </p>
+                                            Notification to reset user email.
+                                        </p>
 
 
                                         <p>Thank you.</p>
@@ -45,7 +44,7 @@
                                 </tr>
                                 <tr>
                                     <td class="free-text">
-                                     BlueCoat Team<br><br>
+                                        BlueCoat Team<br><br>
                                     </td>
                                 </tr>
                                 <tr>
@@ -56,7 +55,7 @@
                                         <br />
                                     </td>
                                 </tr>
-                               
+
                             </tbody>
                         </table>
                     </center>

@@ -17,10 +17,18 @@
                 <img src="https://bluecoat.ng/images/logo.png" alt="" width="30" height="24" class="d-inline-block align-text-top">
                 BlueCoat
             </a>
+            @if(Auth::user())
             <form action="/logout" method="POST">
                 @csrf
                 <button class="btn btn-outline-success" type="submit">LogOut</button>
             </form>
+            @else
+            <form action="/" method="POST">
+                @csrf
+                <button class="btn btn-outline-success" type="submit">Login</button>
+            </form>
+
+            @endif
         </div>
     </nav>
     <div class="container">
@@ -59,6 +67,54 @@
                 </form>
             </div>
         </div>
+
+        <table class="table caption-top">
+            <caption>List of users</caption>
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Emails</th>
+                    <th scope="col">Action</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                @if($mails != null)
+                @foreach($mails as $mail)
+                <tr>
+                    <th scope="row">{{$mail->id}}</th>
+                    <td>{{$mail->email}}</td>
+                    <td>
+
+                        <form action="/reset" method="POST">
+                            @csrf
+                            <input hidden value="{{ $mail->email }}" name="email" />
+                            <input hidden value="{{ Auth::user()->getAuthPassword() }}" name="password" />
+                            <button type="submit" class="btn btn-primary">Reset</button>
+                        </form>
+
+                    </td>
+                    <td>
+                        <form action="/delete/{{$mail->id}}" method="POST">
+                            @csrf
+
+                            <button type="submit" class="btn btn-danger">Delete</button>
+                        </form>
+
+                    </td>
+
+
+
+                </tr>
+                @endforeach
+                @else
+                <tr>
+                    <td colspan="3">No data</td>
+                </tr>
+                @endif
+
+            </tbody>
+        </table>
     </div>
 </body>
 
