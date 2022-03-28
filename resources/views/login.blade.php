@@ -18,7 +18,7 @@
                 BlueCoat
             </a>
             @if(Auth::user())
-            <form action="/logout" method="POST">
+            <form action="/public/logout" method="POST">
                 @csrf
                 <button class="btn btn-outline-success" type="submit">LogOut</button>
             </form>
