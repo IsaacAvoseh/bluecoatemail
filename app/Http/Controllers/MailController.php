@@ -102,4 +102,12 @@ class MailController extends Controller
         $email->delete();
         return back()->with('success', 'Email deleted successfully');
     }
+
+    public function getMails()
+    {
+        $mails = EMail::all();
+        return response()->json([
+            'mails' => $mails
+        ], 200);
+    }
 }
