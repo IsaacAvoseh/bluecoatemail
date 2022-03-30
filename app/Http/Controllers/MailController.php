@@ -92,7 +92,8 @@ class MailController extends Controller
     {
 
         Auth::logout();
-        return redirect('/');
+        return view('login');
+       
     }
 
     public function delete($id)

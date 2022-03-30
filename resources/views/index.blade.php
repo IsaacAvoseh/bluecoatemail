@@ -18,7 +18,7 @@
                 BlueCoat
             </a>
             @if(Auth::user())
-            <form action="/logout" method="POST">
+            <form action="/public/logout" method="POST">
                 @csrf
                 <button class="btn btn-outline-success" type="submit">LogOut</button>
             </form>
@@ -81,15 +81,20 @@
             <tbody>
                 @if($mails != null)
                 @foreach($mails as $mail)
+            
                 <tr>
-                    <th scope="row">{{$mail->id}}</th>
+                    <th scope="row">{{$loop->iteration}}</th>
                     <td>{{$mail->email}}</td>
                     <td>
 
-                        <form action="/reset" method="POST">
+                        <form action="/public/reset" method="POST">
                             @csrf
                             <input hidden value="{{ $mail->email }}" name="email" />
+<<<<<<< HEAD
                             <input hidden value= name="password" />
+=======
+
+>>>>>>> 361ccc7e9c5628ee5439d549765c69d37326980c
                             <button type="submit" class="btn btn-primary">Reset</button>
                         </form>
 
