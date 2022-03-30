@@ -10,7 +10,7 @@ class EMail extends Model
 {
     use HasFactory;
     use SoftDeletes;
-protected $table = 'mails';
-   protected $fillable = ['email', 'password'];
+    protected $table = 'mails';
+    protected $fillable = ['email', 'password'];
 
 }

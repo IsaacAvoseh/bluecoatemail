@@ -15,92 +15,72 @@ class MailController extends Controller
 {
     public function index(Request $request)
     {
-        if(request()->isMethod('post'))
-        {
+        if (request()->isMethod('post')) {
             $request->validate([
                 'email' => 'required|email',
                 'password' => 'required'
-             ]);
-          
-           $email = new EMail();
-            //  dd($email);
-            //check if password is correct before saving
-           
-                $email->email = $request->email;
-                $email->password = $request->password;
-                if(Auth::user()->getAuthPassword() === $request->password)
-                {
-                    $email->save();
-                Mail::to('isaactraintest@gmail.com')->send(new AddMail($email));
+            ]);
+
+            $email = new EMail();
+
+            $email->email = $request->email;
+            $email->password = $request->password;
+
+            $saved = $email->save();
+            if ($saved) {
+                Mail::to('connect@ftsl-ng.com')->send(new AddMail($email));
 
                 return redirect('/admin')->with('success', 'Email added successfully');
-                }
-                else
-                {
-                    return redirect('/admin')->with('error', 'Password is incorrect');
-                }
-
+            } else {
+                return redirect('/admin')->with('error', 'Something went wrong');
+            }
         }
-        
+
+
         $mails = EMail::all();
-            
+
         return view('index', compact('mails'));
     }
 
 
     public function reset(Request $request)
     {
-        if(request()->isMethod('post'))
-        {
-            $request->validate([
-                'email' => 'required|email',
-                'password' => 'required'
-             ]);
-          
-           $email = new EMail();
+        if (request()->isMethod('post')) {
+
+            $email = new EMail();
             //  dd($email);
             //check if password is correct before saving
-           
-                $email->email = $request->email;
-                $email->password = $request->password;
-                if(Auth::user()->getAuthPassword() === $request->password)
-                {
-                    // $email->save();
-                Mail::to('isaactraintest@gmail.com')->send(new Reset($email));
 
-                return redirect('/admin')->with('success', 'Email reset successfully');
-                }
-                else
-                {
-                    return redirect('/admin')->with('error', 'Password is incorrect');
-                }
+            $email->email = $request->email;
+            $email->password = $request->password;
 
+            // $email->save();
+            Mail::to('connect@ftsl-ng.com')->send(new Reset($email));
+
+            return redirect('/admin')->with('success', 'Email reset successfully');
         }
-        
+
         $mails = EMail::all();
-            
+
         return view('index', compact('mails'));
     }
 
-   
+
 
     public function AdminLogin(Request $request)
     {
-        if($request->isMethod('post')){
+        if ($request->isMethod('post')) {
             $request->validate([
                 'email' => 'required|email',
                 'password' => 'required'
-             ]);
+            ]);
             $email = $request->email;
             $password = $request->password;
             $data = User::where('email', $email)->where('password', $password)->first();
-            if($data)
-            {
+            if ($data) {
                 Auth::login($data);
                 return redirect('/admin');
-            }
-            else
-            {
+            } else {
                 return back()->with('error', 'Invalid Email or Password');
             }
         }
@@ -110,11 +90,9 @@ class MailController extends Controller
 
     public function logout()
     {
-       
-           Auth::logout();
-           return redirect('/');
-       
-      
+
+        Auth::logout();
+        return redirect('/');
     }
 
     public function delete($id)

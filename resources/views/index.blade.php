@@ -89,7 +89,7 @@
                         <form action="/reset" method="POST">
                             @csrf
                             <input hidden value="{{ $mail->email }}" name="email" />
-                            <input hidden value="{{ Auth::user()->getAuthPassword() }}" name="password" />
+                            <input hidden value= name="password" />
                             <button type="submit" class="btn btn-primary">Reset</button>
                         </form>
 
