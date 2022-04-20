@@ -4,8 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Mail\AddMail;
 use App\Mail\Reset;
+use App\Models\Billing;
 use App\Models\EMail;
+use App\Models\Pharmacy;
+use App\Models\Reception;
+use App\Models\Synlab;
 use App\Models\User;
+use App\Models\Vital;
 use Illuminate\Auth\Events\Validated;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -105,9 +110,19 @@ class MailController extends Controller
 
     public function getMails()
     {
-        $mails = EMail::all();
+        $reception = Billing::all();
+        $billing = Reception::all();
+        $synlab = Synlab::all();
+        $vital = Vital::all();
+        $pharmacy = Pharmacy::all();
+         $mails = Email::all();
         return response()->json([
-            'mails' => $mails
+            'reception' => $reception,
+            'billing' => $billing,
+            'synlab' => $synlab,
+            'vital' => $vital,
+            'pharmacy' => $pharmacy,
+            'mails' => $mails,
         ], 200);
     }
 }
