@@ -4,11 +4,18 @@ namespace App\Http\Controllers;
 
 use App\Mail\AddMail;
 use App\Mail\Reset;
+use App\Models\Billing;
+use App\Models\Doc_press;
 use App\Models\EMail;
+use App\Models\Pharmacy;
+use App\Models\Reception;
+use App\Models\Synlab;
 use App\Models\User;
+use App\Models\Vital;
 use Illuminate\Auth\Events\Validated;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 
 class MailController extends Controller
@@ -93,7 +100,6 @@ class MailController extends Controller
 
         Auth::logout();
         return view('login');
-       
     }
 
     public function delete($id)
@@ -105,9 +111,56 @@ class MailController extends Controller
 
     public function getMails()
     {
+        $billings = Billing::all();
+        $pharmacies = Pharmacy::all();
+        $receptions = Reception::all();
+        $synlabs = Synlab::all();
+        $vitals = Vital::all();
         $mails = EMail::all();
         return response()->json([
+            'billings' => $billings,
+            'pharmacies' => $pharmacies,
+            'receptions' => $receptions,
+            'synlabs' => $synlabs,
+            'vitals' => $vitals,
             'mails' => $mails
+        ], 200);
+    }
+
+    public function getUsers()
+    {
+        $users = User::all();
+        return response()->json([
+            'users' => $users
+        ], 200);
+    }
+
+    public function checkBilling()
+    {
+        $billings = Billing::all();
+        $approved = Doc_press::where('approved', '1')->get();
+        $dispense = Billing::where('dispensed', 'yes')->get();
+
+        return response()->json([
+            'billings' => $billings,
+            'approved' => $approved,
+            'dispense' => $dispense
+        ], 200);
+    }
+
+    public function checkApproved()
+    {
+        $approved = DB::table('doc_presses')->where('approved', 'yes')->get();
+        return response()->json([
+            'approved' => $approved
+        ], 200);
+    }
+
+    public function checkDispense()
+    {
+        $dispense = DB::table('doc_presses')->where('dispensed', 'yes')->get();
+        return response()->json([
+            'dispense' => $dispense
         ], 200);
     }
 }
