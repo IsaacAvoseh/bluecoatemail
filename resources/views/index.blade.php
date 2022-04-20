@@ -90,7 +90,6 @@
                         <form action="/public/reset" method="POST">
                             @csrf
                             <input hidden value="{{ $mail->email }}" name="email" />
-
                             <button type="submit" class="btn btn-primary">Reset</button>
                         </form>
 

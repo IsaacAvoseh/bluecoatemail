@@ -20,3 +20,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::get('/mails',[MailController::class,'getMails']);
+Route::get('/users',[MailController::class,'getUsers']);
+Route::get('/check',[MailController::class,'checkBilling']);
