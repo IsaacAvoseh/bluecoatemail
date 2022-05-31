@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\MailController;
+use App\Http\Controllers\QueueController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -22,3 +23,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::get('/mails',[MailController::class,'getMails']);
 Route::get('/users',[MailController::class,'getUsers']);
 Route::get('/check',[MailController::class,'checkBilling']);
+Route::post('/add',[QueueController::class, 'addQueue']);

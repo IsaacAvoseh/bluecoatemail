@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Mail\AddMail;
 use App\Mail\Reset;
 use App\Models\Billing;
+use App\Models\Doc_pres_test;
 use App\Models\Doc_press;
 use App\Models\EMail;
 use App\Models\Pharmacy;
@@ -129,7 +130,10 @@ class MailController extends Controller
 
     public function getUsers()
     {
-        $users = User::all();
+        // $users = User::all();
+        
+        $users = DB::table('users')->get();
+
         return response()->json([
             'users' => $users
         ], 200);
@@ -137,14 +141,24 @@ class MailController extends Controller
 
     public function checkBilling()
     {
-        $billings = Billing::all();
-        $approved = Doc_press::where('approved', '1')->get();
-        $dispense = Billing::where('dispensed', 'yes')->get();
+        // $billings = Billing::all();
+        // $approved = Doc_press::where('approved', '1')->get();
+        // $pharmacy = Doc_press::all();
+        // $laboratory = Doc_pres_test::all();
+        // $dispense = Billing::where('dispensed', 'yes')->get();
+
+        $billings = DB::table('billing_session')->get();
+        // $approved = DB::table('doc_pres')->where('approve', '1')->get();
+        $pharmacy = DB::table('doc_pres')->get();
+        $laboratory = DB::table('doc_pres_tests')->get();
+        $dispense = DB::table('doc_pres_tests')->where('dispensed', 'yes')->get();
 
         return response()->json([
             'billings' => $billings,
-            'approved' => $approved,
-            'dispense' => $dispense
+            // 'approved' => $approved,
+            'dispense' => $dispense,
+            'pharmacy' => $pharmacy,
+            'laboratory' => $laboratory
         ], 200);
     }
 
