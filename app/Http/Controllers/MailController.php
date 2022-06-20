@@ -112,19 +112,23 @@ class MailController extends Controller
 
     public function getMails()
     {
-        $billings = Billing::all();
-        $pharmacies = Pharmacy::all();
-        $receptions = Reception::all();
-        $synlabs = Synlab::all();
-        $vitals = Vital::all();
-        $mails = EMail::all();
+        // $billings = Billing::all();
+        $pharmacies = DB::table('doc_prescriptions')
+        ->join('patients', 'doc_prescriptions.patient', '=', 'patients.id')->orderBy('patients.id', 'desc')->take(10)->get();
+        //join billings_sessions with patients table
+        $receptions = DB::table('billing_session')
+            ->join('patients', 'billing_session.patient', '=', 'patients.id')->orderBy('patients.id', 'desc')->take(10)->get();
+            // dd($receptions);
+        // $synlabs = Synlab::all();
+        // $vitals = Vital::all();
+        // $mails = EMail::all();
         return response()->json([
-            'billings' => $billings,
+            // 'billings' => $billings,
             'pharmacies' => $pharmacies,
             'receptions' => $receptions,
-            'synlabs' => $synlabs,
-            'vitals' => $vitals,
-            'mails' => $mails
+            // 'synlabs' => $synlabs,
+            // 'vitals' => $vitals,
+            // 'mails' => $mails
         ], 200);
     }
 
