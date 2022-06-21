@@ -20,7 +20,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('/mails',[MailController::class,'getMails']);
+Route::get('/mails',[MailController::class, 'getQueue']);
 Route::get('/users',[MailController::class,'getUsers']);
 Route::get('/check',[MailController::class,'checkBilling']);
 Route::post('/add',[QueueController::class, 'addQueue']);
