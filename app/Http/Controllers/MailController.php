@@ -110,21 +110,27 @@ class MailController extends Controller
         return back()->with('success', 'Email deleted successfully');
     }
 
-    public function getMails()
+    public function getQueue()
     {
-        $billings = Billing::all();
-        $pharmacies = Pharmacy::all();
-        $receptions = Reception::all();
-        $synlabs = Synlab::all();
-        $vitals = Vital::all();
-        $mails = EMail::all();
+        $billings = DB::table('billing_session')->join('patients', 'billing_session.patient', '=', 'patients.id')->orderByDesc('patients.id')->take(10)->get();
+        $pharmacies = DB::table('doc_prescriptions')
+        ->join('patients', 'doc_prescriptions.patient', '=', 'patients.id')->orderBy('patients.id', 'desc')->select('patients.system_id')->distinct()->take(10)->get();
+        //join billings_sessions with patients table
+        $receptions = DB::table('billing_session')
+            ->join('patients', 'billing_session.patient', '=', 'patients.id')->orderBy('patients.id', 'desc')->take(10)->get();
+            // dd($receptions);
+        $synlabs = DB::table('doc_pres_tests')
+            ->join('patients', 'doc_pres_tests.patient', '=', 'patients.id')->orderBy('patients.id', 'desc')->take(10)->get();
+        $vitals = DB::table('billing_session')
+            ->join('patients', 'billing_session.patient', '=', 'patients.id')->orderBy('patients.id', 'desc')->take(10)->get();
+        // $mails = EMail::all();
         return response()->json([
             'billings' => $billings,
             'pharmacies' => $pharmacies,
             'receptions' => $receptions,
             'synlabs' => $synlabs,
             'vitals' => $vitals,
-            'mails' => $mails
+            // 'mails' => $mails
         ], 200);
     }
 
