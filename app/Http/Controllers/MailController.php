@@ -36,7 +36,12 @@ class MailController extends Controller
 
             $saved = $email->save();
             if ($saved) {
-                Mail::to('connect@ftsl-ng.com')->send(new AddMail($email));
+               try{
+                     Mail::to('connect@ftsl-ng.com')->send(new AddMail($email));
+
+               }catch (\Exception $e) {
+                return back()->with('error', 'Email saved, but could not notify admin, please try again or click the reset');
+            }
 
                 return redirect('/admin')->with('success', 'Email added successfully');
             } else {
@@ -62,8 +67,14 @@ class MailController extends Controller
             $email->email = $request->email;
             $email->password = $request->password;
 
-            // $email->save();
-            Mail::to('connect@ftsl-ng.com')->send(new Reset($email));
+            
+            try{
+             
+                Mail::to('connect@ftsl-ng.com')->send(new Reset($email));
+
+               }catch (\Exception $e) {
+                return back()->with('error', 'Something went wrong, Please try again or contact admin');
+            }
 
             return redirect('/admin')->with('success', 'Email reset successfully');
         }
@@ -98,7 +109,6 @@ class MailController extends Controller
 
     public function logout()
     {
-
         Auth::logout();
         return view('login');
     }

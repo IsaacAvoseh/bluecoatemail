@@ -18,8 +18,7 @@ use Illuminate\Support\Facades\Route;
 //     return view('welcome');
 // });
 Route::match(['get', 'post'], '/admin',[MailController::class, 'index'])->name('admin')->middleware('auth');
-Route::match(['get', 'post'], '/',[MailController::class, 'AdminLogin'])->name(
-    'login');
-Route::post('/logout', [MailController::class, 'logout'])->name('logout');
+Route::match(['get', 'post'], '/',[MailController::class, 'AdminLogin'])->name('login');
+Route::match(['get', 'post'],'/logout', [MailController::class, 'logout'])->name('logout');
 Route::post('/delete/{id}', [MailController::class, 'delete'])->name('delete');
 Route::post('/reset', [MailController::class, 'reset'])->name('reset');

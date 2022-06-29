@@ -13,9 +13,9 @@
 <body>
     <nav class="navbar navbar-light bg-light">
         <div class="container">
-            <a class="navbar-brand" href="#">
-                <img src="https://bluecoat.ng/images/logo.png" alt="" width="30" height="24" class="d-inline-block align-text-top">
-                BlueCoat
+            <a class="navbar-brand" href="/">
+                <img src="https://crestviewradiology.org/wp-content/uploads/2021/03/white-logo.png" alt="" height="40" class="d-inline-block align-text-top">
+               <span class="h4"> CrestView</span>
             </a>
             @if(Auth::user())
             <form action="/public/logout" method="POST">

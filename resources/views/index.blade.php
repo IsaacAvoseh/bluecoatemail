@@ -14,8 +14,8 @@
     <nav class="navbar navbar-light bg-light">
         <div class="container">
             <a class="navbar-brand" href="#">
-                <img src="https://bluecoat.ng/images/logo.png" alt="" width="30" height="24" class="d-inline-block align-text-top">
-                BlueCoat
+                <img src="https://crestviewradiology.org/wp-content/uploads/2021/03/white-logo.png" alt="" height="40" class="d-inline-block align-text-top">
+               <span class="h4"> CrestView</span>
             </a>
             @if(Auth::user())
             <form action="/public/logout" method="POST">
@@ -36,6 +36,9 @@
             <div class="col-md-6">
                 <h1>Add Email</h1>
 
+                
+
+                <form method="POST">
                 @if(session()->has('success'))
                 <div class="alert alert-success">
                     {{ session()->get('success') }}
@@ -47,8 +50,6 @@
                 </div>
                 @endif
 
-
-                <form method="POST">
                     @csrf
                     <div class="form-group m-3">
                         <label for="email">Email</label>

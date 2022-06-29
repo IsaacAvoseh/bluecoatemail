@@ -15,7 +15,7 @@
                 <td align="left" style="background-color: #ffffff; text-align:center;" valign="top" width="100%">
                     <center>
                         <br>
-                        <img class="force-width-gmail" width="100" height="100" src="https://bluecoat.ng/images/logo.png" />
+                         <img src="https://crestviewradiology.org/wp-content/uploads/2021/03/white-logo.png" alt="" height="40" class="d-inline-block align-text-top">
 
                     </center>
                 </td>
